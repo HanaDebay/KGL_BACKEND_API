@@ -1,0 +1,61 @@
+Your submission must include a fully functional Express server connected to a MongoDB database. The project structure must utilize modular routing with three distinct routers.
+A. Architecture & Routing
+You must implement the following three routers in your application:procurementRoutes: Handles all logic related to purchasing produce from dealers/farms.salesRoutes: Handles logic for both cash sales and credit/deferred sales.userRoutes: Handles user management and authentication.B. API Documentation
+You must integrate Swagger (swagger-jsdoc/swagger-ui-express) to document your API endpoints.
+The documentation should be accessible at a route (e.g., /api-docs) and clearly detail the request body, parameters, and response codes for every endpoint.
+Functional Specifications Router 1: Procurement (/procurement)
+Managers use this to record produce bought by KGL. Your API must accept and validate the following data fields:
+
+Name of produce: Alpha-numeric.
+Type of produce: Alphabetic characters only, minimum 2 characters, cannot be empty.
+Date: Not empty.
+Time: Time of produce.
+Tonnage (kg): Numeric, minimum 3 digits (e.g., 100+), cannot be empty.
+Cost (UgX): Numeric, minimum 5 digits, cannot be empty.
+Dealer Name: Alpha-numeric, minimum 2 characters, cannot be empty.
+Branch: The branch stocking the produce (Maganjo or Matugga).+1
+Contact: Valid phone numbers.
+Selling Price: The price to be sold at.
+Router 2: Sales (/sales)
+This router handles two types of transactions. You must distinguish between them in your database schema or endpoints.
+1. Cash Sales
+Fields: Produce name, Tonnage, Amount Paid (UgX, min 5 digits), Buyer's Name (Alpha-numeric, min 2 chars), Sales Agent Name (Alpha-numeric, min 2 chars), Date, and Time.
+2. Credit/Deferred Sales
+Target: Trusted buyers only.
+Fields: Buyer Name (Alpha-numeric, min 2 chars), National ID (NIN) (Valid NIN format), Location (Alpha-numeric, min 2 chars), Contacts (Valid phone format), Amount Due (UgX, min 5 digits), Sales Agent Name, Due Date, Produce Name, Produce Type, Tonnage, and Dispatch Date.
+Router 3: Users & Authentication (/users)
+This router manages the staff (Managers and Sales Agents).
+1. Login Endpoint
+Create a specific route (e.g., /login) that accepts a username/email and password.
+Logic: Check the database for the user.
+Status 200: Return if the user exists.
+Status 401: Return if the user does not exist.
+2. User Management
+Support creating users with roles (Manager vs. Sales Agent). Note that only Managers should be allowed to record procurement, and Sales Agents record sales.+1
+
+Submission Guidelines
+To submit your assignment, follow these strict guidelines:
+Public Repository: Provide a link to a public GitHub repository containing your project code.
+Project Organization: Your code must follow a clean, modular directory structure.  Separate your models, routers, and utility programs.
+Environment Variables:
+Do NOT commit your .env file containing actual secrets or database URIs.
+DO include a .env.example file in the root of your repository. This file must contain a template of the expected environment variables
+Example: .env.example
+Your repository should include a file named .env.example that looks exactly like this (but with empty or dummy values):
+
+
+
+# Server Configuration
+PORT=3000
+NODE_ENV=development
+
+# Database Connection
+DATABASE_URI=mongodb://localhost:27017/karibu_groceries_db
+
+# Authentication Secrets (if applicable)  JWT_SECRET=your_jwt_secret_here
+
+
+Grading Criteria:
+Correct implementation of the 3-router architecture.
+Proper use of the .env.example file and Git ignore rules.
+Functionality of the Login (200/401) logic.
