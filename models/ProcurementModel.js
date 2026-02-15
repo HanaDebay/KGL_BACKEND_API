@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const procurementSchema = new mongoose.Schema({
-    produectName: String,
+    produceName: String,
     produceType: String,
     date: String,
     time: String,
@@ -10,7 +10,11 @@ const procurementSchema = new mongoose.Schema({
     dealerName: String,
     branch:{type: String, enum:["Maganjo", "Matugga"]},
     contact: String,
-    sellingPrice: Number
+    sellingPrice: Number,
+    recordedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }
 
 });
 

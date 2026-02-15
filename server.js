@@ -3,6 +3,10 @@ const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db.js");
 const userRoutes = require("./routers/userRoutes.js");
+const procurementRoutes = require("./routers/procurmentRoutes.js");
+const salesRoutes = require("./routers/salesRoutes.js");
+
+
 
 const app = express();
 
@@ -14,6 +18,8 @@ app.use(express.json());
 connectDB();
 
 app.use("/users", userRoutes);
+app.use("/procurements", procurementRoutes);
+app.use("/sales", salesRoutes);
 
 
 

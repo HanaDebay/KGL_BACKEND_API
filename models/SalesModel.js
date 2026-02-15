@@ -7,15 +7,19 @@ const salesSchema = new mongoose.Schema({
     produceType: String,
     tonnage: Number,
     amountPaid: Number,
-    nationalID: String,
+    amountDue: Number,
+    nin: String,
     location: String,
-    contacts: String,
-    amountPaid: Number,
-    salesAgentName: String,
+    contact: String,
+    salesAgent: String,
     dueDate: String,
     dispatchDate: String,
     date: String,
-    time: String
+    time: String,
+    recordedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }
 });
 
 module.exports = mongoose.model("Sale", salesSchema);

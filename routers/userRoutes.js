@@ -12,11 +12,15 @@ const {success, error} = require("../utils/responseHandler.js");
 router.post("/register", async (req, res) => {
   try {
     const hashed = await bcrypt.hash(req.body.password, 10);
+    //check existing user 
+    const existingUser = await User.findOne({ email: req.body.email });
+    if (existingUser)
+      return error(res, "User already exists", 400);
     const user = await User.create({
       ...req.body,
       password: hashed, //replace plain text with hash
     });
-
+   
     success(res,  user, "User Created Successfully");
   } catch (err) {
     error(res, "Error Creating user", 500);
@@ -28,10 +32,10 @@ router.post("/login", async (req, res) => {
     try {
         const user = await User.findOne({ email: req.body.email });
         if(!user)
-            return error(res, 404, "User not found");
+            return error(res, "User not found", 404);
         const match = await bcrypt.compare(req.body.password, user.password);
         if(!match)
-            return error(res, 401, "Invalid credentials");
+            return error(res, "Invalid credentials", 401);
         const token = generateToken(user._id, user.role);
         success(res, {user, token}, "Login Successful")
         
